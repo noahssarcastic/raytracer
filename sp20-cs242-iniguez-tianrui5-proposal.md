@@ -1,5 +1,4 @@
 # Overview
-
 ## Motivation
 For this project I will be implementing a ray-tracer from scratch. Since coming 
 to this school I have been ineterested in computer graphics. I took CS418 years 
@@ -20,7 +19,6 @@ The two libraries will be a geometry library and an effects library. Both
 libraries will be implemented follwong OOP best practices.
 
 ## Features
-
 ### Geometries
 * OBJ or PLY format support
 * Ray-object intersection support for:
@@ -42,6 +40,8 @@ libraries will be implemented follwong OOP best practices.
 ### Misc.
 * Rendering a mirror-like object
 * Rendering a transparent object
+* Calculation Optimizations
+* Multi-jittered sampling
 
 
 # Week 1
@@ -70,13 +70,36 @@ libraries will be implemented follwong OOP best practices.
         * Follows OOP best practices (1 point)
 
 ## Testing Requirements (10 points)
-
+* Library Testing (8 points)
+    * Good code coverage (2 points)
+    * Tests camera to object raycasts for planes (2 points)
+        * Orthographic (1 point)
+        * Perspective (1 point)
+    * Tests camera to object raycasts for spheres (2 points)
+        * Orthographic (1 point)
+        * Perspective (1 point)
+    * Tests camera to object raycasts for triangles (2 points)
+        * Orthographic (1 point)
+        * Perspective (1 point)
+* Manual Testing (2 points)
+    * Test plan includes tests for creating a scene (1 point)
+    * Test plan includes tests for using cli (1 point)
 
 # Week 2
 ## Functional Requirements (15 points)
+* Support for point lights
+* Support for area lights
+* Support for shadows
+* Support for diffuse and specular reflection (Phong model)
+
 ## Testing Requirements (10 points)
 
 
 # Week 3
 ## Functional Requirements (15 points)
+* Rendering a mirror-like object
+* Rendering a transparent object
+* Calculation Optimizations
+* Multi-jittered sampling
+
 ## Testing Requirements (10 points)
