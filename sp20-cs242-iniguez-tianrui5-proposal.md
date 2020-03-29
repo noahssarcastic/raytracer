@@ -46,6 +46,29 @@ libraries will be implemented follwong OOP best practices.
 
 # Week 1
 ## Functional Requirements (15 points)
+* OBJ or PLY format support (1 point)
+* Ray-object intersection support (9 points)
+    * Planes (3 points)
+        * Basic implementation (1 point)
+        * Follows OOP best practices (1 point)
+        * Supports color (1 point)
+    * Spheres (3 points)
+        * Basic implementation (1 point)
+        * Follows OOP best practices (1 point)
+        * Supports color (1 point)
+    * Triangles (3 points)
+        * Basic implementation (1 point)
+        * Follows OOP best practices (1 point)
+        * Supports color (1 point)
+* Movable camera (5 points)
+    * Orthographic projection (3 points)
+        * Basic implementation (1 point)
+        * Follows OOP best practices (1 point)
+        * Support for projection options (1 point)
+    * Perspective projection (2 points)
+        * Basic implementation (1 point)
+        * Follows OOP best practices (1 point)
+
 ## Testing Requirements (10 points)
 
 
