@@ -72,6 +72,8 @@ libraries will be implemented follwong OOP best practices.
 ## Testing Requirements (10 points)
 * Library Testing (8 points)
     * Good code coverage (2 points)
+        * 1 point for 70%
+        * 2 points for 90%
     * Tests camera to object raycasts for planes (2 points)
         * Orthographic (1 point)
         * Perspective (1 point)
@@ -110,13 +112,56 @@ libraries will be implemented follwong OOP best practices.
         * Specular reflection is adjustable (1 point)
 
 ## Testing Requirements (10 points)
-
+* Good code coverage (2 points)
+    * 1 point for 70%
+    * 2 points for 90%
+* Tests point light to object raycasts (2 points)
+    * 0 points for no tests
+    * 1 point for basic tests
+    * 2 points for edge case testing
+* Tests area light to object raycasts (2 points)
+    * 0 points for no tests
+    * 1 point for basic tests
+    * 2 points for edge case testing
+* Tests shadow caluclations (2 points)
+    * 0 points for no tests
+    * 1 point for basic tests
+    * 2 points for edge case testing
+* Tests reflection calculations (2 points)
+    * 0 points for no tests
+    * 1 point for basic tests
+    * 2 points for edge case testing
 
 # Week 3
 ## Functional Requirements (15 points)
-* Rendering a mirror-like object
-* Rendering a transparent object
-* Calculation Optimizations
-* Multi-jittered sampling
+* Rendering a mirror-like object (5 points)
+    * Basic implementation (2 point)
+    * OOP best practices implemented (1 point)
+    * Adjustable reflectance (2 points)
+* Rendering a transparent object (5 points)
+    * Basic implementation (2 point)
+    * OOP best practices implemented (1 point)
+    * Adjustable opacity (2 points)
+* Calculation Optimizations (4 points)
+    * 1 point for implementation of a data structure for intersection testing
+    * 2 points for preformance increase of at least 20%
+    * 3 points for preformance increase of at least 50%
+    * 4 points for preformance increase of at least 100%
+* Multi-jittered sampling (1 point)
 
 ## Testing Requirements (10 points)
+* Update manual test plan (4 points)
+    * 2 point for updates for week 2 or 3 features
+    * 4 points for updates for both weeks 2 and 3
+* Library Testing (6 points)
+    * Good code coverage (2 points)
+        * 1 point for 70%
+        * 2 points for 90%
+    * Tests for mirror surface calculations (2 points)
+        * 0 points for no tests
+        * 1 point for basic tests
+        * 2 points for edge case testing
+    * Tests for transparent surface calculations (2 points)
+        * 0 points for no tests
+        * 1 point for basic tests
+        * 2 points for edge case testing
