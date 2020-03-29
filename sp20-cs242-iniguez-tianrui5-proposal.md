@@ -87,10 +87,27 @@ libraries will be implemented follwong OOP best practices.
 
 # Week 2
 ## Functional Requirements (15 points)
-* Support for point lights
-* Support for area lights
-* Support for shadows
-* Support for diffuse and specular reflection (Phong model)
+* Support for point lights (3 points)
+    * Point lights implemented (1 point)
+    * OOP best practices implemented (1 point)
+    * Support for color (1 point)
+* Support for area lights (3 points)
+    * area lights implemented (1 point)
+    * OOP best practices implemented (1 point)
+    * Support for color (1 point)
+* Support for shadows (3 points)
+    * Hard shadows implemented (1 point)
+    * OOP best practices implemented (1 point)
+    * Soft shadows implemented (1 point)
+* Support reflection (6 points)
+    * Diffuse reflection (2 points)
+        * Diffuse reflection implemented (1 point)
+        * OOP best practices implemented (1 point)
+    * Specular reflection (4 points)
+        * Specular reflection implemented (1 point)
+        * OOP best practices implemented (1 point)
+        * Support for diffuse and specular together (1 point)
+        * Specular reflection is adjustable (1 point)
 
 ## Testing Requirements (10 points)
 
