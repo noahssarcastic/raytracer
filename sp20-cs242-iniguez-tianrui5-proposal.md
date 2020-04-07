@@ -1,7 +1,7 @@
 # Overview
 ## Motivation
 For this project I will be implementing a ray-tracer from scratch. Since coming 
-to this school I have been ineterested in computer graphics. I took CS418 years 
+to this school I have been interested in computer graphics. I took CS418 years 
 ago but was never able to fit CS419 into my schedule. I bought the text book 
 years ago to read in my own time but have never had the time to implement the 
 theory. I see this project as the perfect time to finally pursue this passion 
