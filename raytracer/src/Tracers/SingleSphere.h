@@ -8,13 +8,16 @@
 #include "Tracer.h"
 
 
+/**
+ * Tracer designed to trace a single sphere.
+ */
 class SingleSphere: public Tracer {
 public:
-    SingleSphere(void);
+    SingleSphere();
     SingleSphere(World* _worldPtr);
 
     virtual
-    ~SingleSphere(void);
+    ~SingleSphere();
 
     virtual RGBColor
     trace_ray(const Ray& ray) const;

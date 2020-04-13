@@ -2,8 +2,6 @@
 // Created by ninig on 4/12/2020.
 //
 
-#include <iostream>
-
 #include "SingleSphere.h"
 #include "World.h"
 #include "ShadeRec.h"

@@ -18,6 +18,7 @@ add_executable(
         Math/Vector3D.cpp
         Tracers/SingleSphere.cpp
         Tracers/Tracer.cpp
+        Tracers/MultipleObjects.cpp
         Utilities/RGBColor.cpp
         Utilities/ShadeRec.cpp
         World/ViewPlane.cpp

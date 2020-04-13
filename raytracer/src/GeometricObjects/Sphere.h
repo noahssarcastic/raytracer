@@ -9,6 +9,9 @@
 #include "Point3D.h"
 
 
+/**
+ * Geometric Object representing a sphere.
+ */
 class Sphere: public GeometricObject {
 public:
     Sphere(void);

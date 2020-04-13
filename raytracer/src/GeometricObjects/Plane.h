@@ -9,6 +9,9 @@
 #include "Point3D.h"
 
 
+/**
+ * GeometricObject representing a plane.
+ */
 class Plane: public GeometricObject {
 public:
     Plane(void);

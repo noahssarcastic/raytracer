@@ -9,7 +9,9 @@
 #include "RGBColor.h"
 #include "ShadeRec.h"
 
-
+/**
+ * Abstract class representing a geometry.
+ */
 class GeometricObject {
 public:
     GeometricObject(void);
@@ -21,6 +23,13 @@ public:
     virtual GeometricObject*
     clone(void) const = 0;
 
+    /**
+     * Abstract hit method for geometry.
+     * @param ray Ray used for collision calculation.
+     * @param t Linear function parameter.
+     * @param s ShadeRec for shading calculation.
+     * @return true if there is a collision.
+     */
     virtual bool
     hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
 

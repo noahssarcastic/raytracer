@@ -11,6 +11,9 @@
 
 class World;
 
+/**
+ * Abstract class designed to handle all raycasts in a World.
+ */
 class Tracer {
 public:
     Tracer(void);
@@ -19,6 +22,11 @@ public:
     virtual
     ~Tracer(void);
 
+    /**
+     * Given a ray, cast to all objects, set ShadeRec data, and return a pixel color.
+     * @param ray Ray to cast.
+     * @return RGBColor representing the color value of the given intersection.
+     */
     virtual RGBColor
     trace_ray(const Ray& ray) const;
 

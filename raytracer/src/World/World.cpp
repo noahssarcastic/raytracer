@@ -8,10 +8,19 @@
 #include <SingleSphere.h>
 #include <Vector3D.h>
 #include <Point3D.h>
+#include <MultipleObjects.h>
+#include <Plane.h>
 #include "World.h"
 
 
 World::World(): vp(), background_color(BLACK), sphere(), tracer_ptr(), image_ptr() {}
+
+World::~World() {
+    if (tracer_ptr)
+        tracer_ptr = nullptr;
+    if (image_ptr)
+        image_ptr = nullptr;
+}
 
 void
 World::build() {
@@ -21,17 +30,41 @@ World::build() {
     vp.set_gamma(1.0);
 
     background_color = BLACK;
-    tracer_ptr = new SingleSphere(this);
 
-    sphere.set_center(Point3D(0.0));
-    sphere.set_radius(85.0);
+//    tracer_ptr = new SingleSphere(this);
+//    sphere.set_center(Point3D(0.0));
+//    sphere.set_radius(85.0);
+
+    tracer_ptr = new MultipleObjects(this);
+    Sphere* sphere_ptr = new Sphere(Point3D(0, -25, 0), 80);
+    sphere_ptr->set_color(1, 0, 0);
+    add_object(sphere_ptr);
+    sphere_ptr = new Sphere(Point3D(0, 30, 0), 60);
+    sphere_ptr->set_color(1, 1, 0);
+    add_object(sphere_ptr);
+    Plane* plane_ptr = new Plane(Point3D(0, 0, 0), Normal(0, 1, 1));
+    plane_ptr->set_color(0.0, 0.3, 0.0);
+    add_object(plane_ptr);
 }
 
-World::~World() {
-    if (tracer_ptr)
-        tracer_ptr = nullptr;
-    if (image_ptr)
-        image_ptr = nullptr;
+void
+World::add_object(GeometricObject* object_ptr) {
+    objects.push_back(object_ptr);
+}
+
+ShadeRec
+World::hit_bare_bones_objects(const Ray& ray) {
+    ShadeRec sr(*this);
+    double t;
+    double tmin = K_HUGE_VALUE;
+    int num_objects = objects.size();
+    for (int i = 0; i < num_objects; i++)
+        if (objects[i]->hit(ray, t, sr) && t < tmin) {
+            sr.hit = true;
+            tmin = t;
+            sr.color = objects[i]->get_color();
+        }
+    return sr;
 }
 
 void
@@ -43,7 +76,10 @@ World::render_scene() {
 
     bitmap_image image(vp.hres, vp.vres);
     image_ptr = &image;
-    image.set_all_channels(background_color.r, background_color.g, background_color.b);
+    image.set_all_channels(
+            static_cast<char>(background_color.r * 255),
+            static_cast<char>(background_color.g * 255),
+            static_cast<char>(background_color.b * 255));
     ray.d = Vector3D(0, 0, -1);
 
     for (int r = 0; r < vp.vres; r++)
@@ -93,5 +129,9 @@ World::display_pixel(const int row, const int col, const RGBColor& raw) const {
 
     int x = col;
     int y = vp.vres - row - 1;
-    image_ptr->set_pixel(x, y, static_cast<char>(mapped.r*255), static_cast<char>(mapped.g*255), static_cast<char>(mapped.b*255));
+    image_ptr->set_pixel(
+            x, y,
+            static_cast<char>(mapped.r * 255),
+            static_cast<char>(mapped.g * 255),
+            static_cast<char>(mapped.b * 255));
 }
