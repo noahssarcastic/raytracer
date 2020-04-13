@@ -16,7 +16,7 @@ I will also need to use an external open-source bitmap library since
 implementing the bitmap image format is out of the scope of this project. The 
 code will be broken up into two main libraries and a command-line-interface. 
 The two libraries will be a geometry library and an effects library. Both 
-libraries will be implemented follwong OOP best practices.
+libraries will be implemented following OOP best practices.
 
 ## Features
 ### Geometries
