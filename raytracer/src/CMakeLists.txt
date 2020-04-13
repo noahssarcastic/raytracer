@@ -1,0 +1,25 @@
+include_directories(Bitmap)
+include_directories(Cameras)
+include_directories(GeometricObjects)
+include_directories(Math)
+include_directories(Tracers)
+include_directories(Utilities)
+include_directories(World)
+
+add_executable(
+        run main.cpp
+        GeometricObjects/GeometricObject.cpp
+        GeometricObjects/Plane.cpp
+        GeometricObjects/Sphere.cpp
+        Math/Matrix.cpp
+        Math/Normal.cpp
+        Math/Point3D.cpp
+        Math/Ray.cpp
+        Math/Vector3D.cpp
+        Tracers/SingleSphere.cpp
+        Tracers/Tracer.cpp
+        Utilities/RGBColor.cpp
+        Utilities/ShadeRec.cpp
+        World/ViewPlane.cpp
+        World/World.cpp
+)
