@@ -1,4 +1,6 @@
 /.idea/
-/cmake-build-debug/
-/out/
+/raytracer/cmake-build-debug/
+/raytracer/out/
+/html/
+/latex/
 
