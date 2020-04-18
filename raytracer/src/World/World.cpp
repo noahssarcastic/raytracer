@@ -13,7 +13,7 @@
 #include "World.h"
 
 
-World::World(): vp(), background_color(BLACK), sphere(), tracer_ptr(), image_ptr() {}
+World::World(): vp(), background_color(BLACK), sphere(), tracer_ptr(), image_ptr(), d(500), eye(500) {}
 
 World::~World() {
     if (tracer_ptr)
@@ -36,8 +36,8 @@ World::build() {
 //    sphere.set_radius(85.0);
 
     tracer_ptr = new MultipleObjects(this);
-    Sphere* sphere_ptr = new Sphere(Point3D(0, -25, 0), 80);
-    sphere_ptr->set_color(1, 0, 0);
+    Sphere* sphere_ptr = new Sphere(Point3D(10, -25, 0), 80);
+    sphere_ptr->set_color(1, 0, 1);
     add_object(sphere_ptr);
     sphere_ptr = new Sphere(Point3D(0, 30, 0), 60);
     sphere_ptr->set_color(1, 1, 0);
@@ -80,8 +80,8 @@ World::render_scene() {
             static_cast<char>(background_color.r * 255),
             static_cast<char>(background_color.g * 255),
             static_cast<char>(background_color.b * 255));
-    ray.d = Vector3D(0, 0, -1);
 
+    ray.d = Vector3D(0, 0, -1);
     for (int r = 0; r < vp.vres; r++)
         for (int c = 0; c < vp.vres; c++) {
             x = vp.s * (c - 0.5 * (vp.hres - 1.0));
@@ -91,6 +91,33 @@ World::render_scene() {
             display_pixel(r, c, pixel_color);
         }
     image.save_image("../../out/output.bmp");
+}
+
+void
+World::render_perspective() {
+    RGBColor pixel_color;
+    Ray ray;
+
+    bitmap_image image(vp.hres, vp.vres);
+    image_ptr = &image;
+    image.set_all_channels(
+            static_cast<char>(background_color.r * 255),
+            static_cast<char>(background_color.g * 255),
+            static_cast<char>(background_color.b * 255));
+
+    ray.o = Point3D(0.0, 0.0, eye);
+    for (int r = 0; r < vp.vres; r++)
+        for (int c = 0; c < vp.vres; c++) {
+            ray.d = Vector3D(
+                    vp.s * (c - 0.5 * (vp.hres - 1.0)),
+                    vp.s * (r - 0.5 * (vp.vres - 1.0)),
+                    -d);
+            ray.d.normalize();
+            pixel_color = tracer_ptr->trace_ray(ray);
+            display_pixel(r, c, pixel_color);
+        }
+    image.save_image("../../out/output.bmp");
+
 }
 
 void

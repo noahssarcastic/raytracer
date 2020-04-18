@@ -12,6 +12,9 @@
 
 class World;
 
+/**
+ * Class used to store rudimentary shading data.
+ */
 class ShadeRec {
 public:
     bool hit;

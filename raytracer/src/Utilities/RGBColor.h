@@ -6,15 +6,18 @@
 #define RAYTRACER_RGBCOLOR_H
 
 
+/**
+ * Class representing a color with RGB channels 0 to 1 inclusive.
+ */
 class RGBColor {
 public:
     float	r, g, b;
 
-    RGBColor(void);
-    RGBColor(float c);
+    RGBColor();
+    explicit RGBColor(float c);
     RGBColor(float _r, float _g, float _b);
     RGBColor(const RGBColor& c);
-    ~RGBColor(void);
+    ~RGBColor();
 
     RGBColor&
     operator= (const RGBColor& rhs);
@@ -26,16 +29,16 @@ public:
     operator+= (const RGBColor& c);
 
     RGBColor
-    operator* (const float a) const;
+    operator* (float a) const;
 
     RGBColor&
-    operator*= (const float a);
+    operator*= (float a);
 
     RGBColor
-    operator/ (const float a) const;
+    operator/ (float a) const;
 
     RGBColor&
-    operator/= (const float a);
+    operator/= (float a);
 
     RGBColor
     operator* (const RGBColor& c) const;
@@ -43,11 +46,20 @@ public:
     bool
     operator== (const RGBColor& c) const;
 
+    /**
+     * Take RGB values to a power piece-wise.
+     * @param p Power variable.
+     * @return Return new RGBColor.
+     */
     RGBColor
     powc(float p) const;
 
+    /**
+     * Average the RGB value.
+     * @return Return average.
+     */
     float
-    average(void) const;
+    average() const;
 };
 
 

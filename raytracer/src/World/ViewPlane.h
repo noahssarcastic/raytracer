@@ -6,6 +6,9 @@
 #define RAYTRACER_VIEWPLANE_H
 
 
+/**
+ * Class used to store screen data.
+ */
 class ViewPlane {
 public:
     int     hres;
@@ -30,6 +33,10 @@ public:
     void
     set_gamma(const float g);
 
+    /**
+     * Show colors out of gamut as red.
+     * @param show True if gamut errors shown.
+     */
     void
     set_gamut_display(const bool show);
 };
