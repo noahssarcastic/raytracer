@@ -1,7 +1,9 @@
 include_directories(Bitmap)
+include_directories(BRDFs)
 include_directories(Cameras)
 include_directories(GeometricObjects)
 include_directories(Math)
+include_directories(Samplers)
 include_directories(Tracers)
 include_directories(Utilities)
 include_directories(World)
@@ -11,11 +13,19 @@ add_executable(
         GeometricObjects/GeometricObject.cpp
         GeometricObjects/Plane.cpp
         GeometricObjects/Sphere.cpp
+        Math/MathUtils.cpp
         Math/Matrix.cpp
         Math/Normal.cpp
+        Math/Point2D.cpp
         Math/Point3D.cpp
         Math/Ray.cpp
         Math/Vector3D.cpp
+        Samplers/Jittered.cpp
+        Samplers/MultiJittered.cpp
+        Samplers/NRooks.cpp
+        Samplers/PureRandom.cpp
+        Samplers/Regular.cpp
+        Samplers/Sampler.cpp
         Tracers/SingleSphere.cpp
         Tracers/Tracer.cpp
         Tracers/MultipleObjects.cpp

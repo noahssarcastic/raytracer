@@ -96,6 +96,8 @@ public:
      */
     void
     display_pixel(int row, int col, const RGBColor& raw) const;
+
+    void render_sampled();
 };
 
 

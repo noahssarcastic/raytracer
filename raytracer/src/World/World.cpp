@@ -10,6 +10,11 @@
 #include <Point3D.h>
 #include <MultipleObjects.h>
 #include <Plane.h>
+#include <Jittered.h>
+#include <Regular.h>
+#include <MultiJittered.h>
+#include <NRooks.h>
+#include <PureRandom.h>
 #include "World.h"
 
 
@@ -24,18 +29,16 @@ World::~World() {
 
 void
 World::build() {
+    int num_samples = 1; // Use this for all samplers to avoid sampling misalignment.
     vp.set_hres(200);
     vp.set_vres(200);
+    vp.set_sampler(new Regular(num_samples));
     vp.set_pixel_size(1.0);
     vp.set_gamma(1.0);
 
-    background_color = BLACK;
-
-//    tracer_ptr = new SingleSphere(this);
-//    sphere.set_center(Point3D(0.0));
-//    sphere.set_radius(85.0);
-
     tracer_ptr = new MultipleObjects(this);
+
+    background_color = BLACK;
     Sphere* sphere_ptr = new Sphere(Point3D(10, -25, 0), 80);
     sphere_ptr->set_color(1, 0, 1);
     add_object(sphere_ptr);
@@ -65,6 +68,38 @@ World::hit_bare_bones_objects(const Ray& ray) {
             sr.color = objects[i]->get_color();
         }
     return sr;
+}
+
+void
+World::render_sampled() {
+    RGBColor pixel_color;
+    Ray ray;
+    double zw = 100.0;
+    Point2D sp;
+    Point2D pp;
+
+    bitmap_image image(vp.hres, vp.vres);
+    image_ptr = &image;
+    image.set_all_channels(
+            static_cast<char>(background_color.r * 255),
+            static_cast<char>(background_color.g * 255),
+            static_cast<char>(background_color.b * 255));
+
+    ray.d = Vector3D(0, 0, -1);
+    for (int r = 0; r < vp.vres; r++)
+        for (int c = 0; c < vp.vres; c++) {
+            pixel_color = BLACK;
+            for (int i = 0; i < vp.num_samples; i++) {
+                sp = vp.sampler_ptr->sample_unit_square();
+                pp.x = vp.s * (c - 0.5 * vp.hres + sp.x);
+                pp.y = vp.s * (r - 0.5 * vp.vres + sp.y);
+                ray.o = Point3D(pp.x, pp.y, zw);
+                pixel_color += tracer_ptr->trace_ray(ray);
+            }
+            pixel_color /= vp.num_samples;
+            display_pixel(r, c, pixel_color);
+        }
+    image.save_image("../../out/output.bmp");
 }
 
 void
@@ -117,7 +152,6 @@ World::render_perspective() {
             display_pixel(r, c, pixel_color);
         }
     image.save_image("../../out/output.bmp");
-
 }
 
 void

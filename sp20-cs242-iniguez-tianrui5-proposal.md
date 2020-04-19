@@ -123,7 +123,7 @@ libraries will be implemented following OOP best practices.
     * 0 points for no tests
     * 1 point for basic tests
     * 2 points for edge case testing
-* Tests shadow caluclations (2 points)
+* Tests shadow calculations (2 points)
     * 0 points for no tests
     * 1 point for basic tests
     * 2 points for edge case testing
@@ -144,9 +144,9 @@ libraries will be implemented following OOP best practices.
     * Adjustable opacity (2 points)
 * Calculation Optimizations (4 points)
     * 1 point for implementation of a data structure for intersection testing
-    * 2 points for preformance increase of at least 20%
-    * 3 points for preformance increase of at least 50%
-    * 4 points for preformance increase of at least 100%
+    * 2 points for performance increase of at least 20%
+    * 3 points for performance increase of at least 50%
+    * 4 points for performance increase of at least 100%
 * Multi-jittered sampling (1 point)
 
 ## Testing Requirements (10 points)

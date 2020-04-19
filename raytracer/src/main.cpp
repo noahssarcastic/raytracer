@@ -9,6 +9,6 @@ int main (int argc, char **argv)
 {
     World w;
     w.build();
-    w.render_perspective();
+    w.render_sampled();
     return 0;
 }
