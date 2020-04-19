@@ -14,13 +14,11 @@
 class MultipleObjects: public Tracer {
 public:
     MultipleObjects();
-    MultipleObjects(World* _worldPtr);
+    explicit MultipleObjects(World* _worldPtr);
+    ~MultipleObjects() override;
 
-    virtual
-    ~MultipleObjects();
-
-    virtual RGBColor
-    trace_ray(const Ray& ray) const;
+    RGBColor
+    trace_ray(const Ray& ray) const override;
 };
 
 

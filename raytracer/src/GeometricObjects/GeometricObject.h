@@ -9,19 +9,20 @@
 #include "RGBColor.h"
 #include "ShadeRec.h"
 
+
 /**
  * Abstract class representing a geometry.
  */
 class GeometricObject {
 public:
-    GeometricObject(void);
+    GeometricObject();
     GeometricObject(const GeometricObject& object);
 
     virtual
-    ~GeometricObject(void);
+    ~GeometricObject();
 
     virtual GeometricObject*
-    clone(void) const = 0;
+    clone() const = 0;
 
     /**
      * Abstract hit method for geometry.
@@ -33,17 +34,14 @@ public:
     virtual bool
     hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
 
-    void
-    set_color(const RGBColor& c);
+    Material*
+    get_material() const;
 
-    void
-    set_color(const float r, const float g, const float b);
-
-    RGBColor
-    get_color(void);
+    virtual void
+    set_material(Material* ptr);
 
 protected:
-    RGBColor color;
+    Material* material_ptr;
 
     GeometricObject&
     operator=(const GeometricObject& rhs);

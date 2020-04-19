@@ -2,6 +2,8 @@ include_directories(Bitmap)
 include_directories(BRDFs)
 include_directories(Cameras)
 include_directories(GeometricObjects)
+include_directories(Lights)
+include_directories(Materials)
 include_directories(Math)
 include_directories(Samplers)
 include_directories(Tracers)
@@ -10,11 +12,22 @@ include_directories(World)
 
 add_executable(
         run main.cpp
+        BRDFs/BRDF.cpp
+        BRDFs/Lambertian.cpp
+        BRDFs/GlossySpecular.cpp
         Cameras/Camera.cpp
         Cameras/Pinhole.cpp
         GeometricObjects/GeometricObject.cpp
         GeometricObjects/Plane.cpp
         GeometricObjects/Sphere.cpp
+        Lights/Ambient.cpp
+        Lights/Directional.cpp
+        Lights/Light.cpp
+        Lights/PointLight.cpp
+        Materials/Material.cpp
+        Materials/Matte.cpp
+        Materials/Phong.cpp
+        Materials/Plastic.cpp
         Math/MathUtils.cpp
         Math/Matrix.cpp
         Math/Normal.cpp
@@ -28,9 +41,8 @@ add_executable(
         Samplers/PureRandom.cpp
         Samplers/Regular.cpp
         Samplers/Sampler.cpp
-        Tracers/SingleSphere.cpp
         Tracers/Tracer.cpp
-        Tracers/MultipleObjects.cpp
+        Tracers/RayCast.cpp
         Utilities/RGBColor.cpp
         Utilities/ShadeRec.cpp
         World/ViewPlane.cpp

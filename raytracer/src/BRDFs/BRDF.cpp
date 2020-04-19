@@ -6,11 +6,11 @@
 #include "Constants.h"
 
 
-BRDF::BRDF() {}
+BRDF::BRDF(): sampler_ptr(nullptr) {}
 
-BRDF::BRDF(const BRDF& object) {}
+BRDF::BRDF(const BRDF& b): sampler_ptr(b.sampler_ptr) {}
 
-BRDF::~BRDF() {}
+BRDF::~BRDF() = default;
 
 BRDF&
 BRDF::operator=(const BRDF& rhs) {
@@ -19,17 +19,17 @@ BRDF::operator=(const BRDF& rhs) {
     return *this;
 }
 
-virtual RGBColor
+RGBColor
 BRDF::f(const ShadeRec& sr, const Vector3D& wi, const Vector3D& wo) const {
     return BLACK;
 }
 
-virtual RGBColor
+RGBColor
 BRDF::sample_f(const ShadeRec& sr, const Vector3D& wi, const Vector3D& wo) const {
     return BLACK;
 }
 
-virtual RGBColor
+RGBColor
 BRDF::rho(const ShadeRec& sr, const Vector3D& wo) const {
     return BLACK;
 }

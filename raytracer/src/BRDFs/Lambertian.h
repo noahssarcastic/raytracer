@@ -14,12 +14,12 @@
  */
 class Lambertian: public BRDF {
 public:
-    Lambertian(void);
+    Lambertian();
     Lambertian(const Lambertian& lamb);
-    ~Lambertian(void);
+    ~Lambertian();
 
-    virtual Lambertian*
-    clone(void) const;
+    Lambertian*
+    clone() const override;
 
     Lambertian&
     operator= (const Lambertian& rhs);
@@ -31,23 +31,26 @@ public:
      * @param wi Outgoing unit Vector3D direction.
      * @return
      */
-    virtual RGBColor
-    f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
+    RGBColor
+    f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
 
-    virtual RGBColor
-    rho(const ShadeRec& sr, const Vector3D& wo) const;
+    RGBColor
+    sample_f(const ShadeRec& sr, const Vector3D& wi, const Vector3D& wo) const override;
+
+    RGBColor
+    rho(const ShadeRec& sr, const Vector3D& wo) const override;
 
     void
-    set_kd(const float k);
+    set_kd(float k);
 
     void
     set_cd(const RGBColor& c);
 
     void
-    set_cd(const float r, const float g, const float b);
+    set_cd(float r, float g, float b);
 
     void
-    set_cd(const float c);
+    set_cd(float c);
 
 private:
     float		kd; /**< Diffuse coefficient. */

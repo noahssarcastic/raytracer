@@ -6,11 +6,11 @@
 #include "Constants.h"
 
 
-Tracer::Tracer(void): world_ptr(nullptr) {}
+Tracer::Tracer(): world_ptr(nullptr) {}
 
 Tracer::Tracer(World* _world_ptr): world_ptr(_world_ptr) {}
 
-Tracer::~Tracer(void) {
+Tracer::~Tracer() {
     if (world_ptr)
         world_ptr = nullptr;
 }
@@ -22,5 +22,9 @@ Tracer::trace_ray(const Ray& ray) const {
 
 RGBColor
 Tracer::trace_ray(const Ray ray, const int depth) const {
+    return BLACK;
+}
+
+RGBColor Tracer::trace_ray(const Ray ray, float &tmin, const int depth) const {
     return BLACK;
 }

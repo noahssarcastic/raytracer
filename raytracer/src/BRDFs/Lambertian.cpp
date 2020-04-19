@@ -2,17 +2,18 @@
 // Created by ninig on 4/18/2020.
 //
 
+#include <Constants.h>
 #include "Lambertian.h"
 
 
-Lambertian::Lambertian(void): BRDF(), kd(0.0), cd(0.0) {}
+Lambertian::Lambertian(): BRDF(), kd(0.0), cd(0.0) {}
 
 Lambertian::Lambertian(const Lambertian& l): BRDF(l), kd(l.kd), cd(l.cd) {}
 
-Lambertian::~Lambertian(void) {}
+Lambertian::~Lambertian() = default;
 
-virtual Lambertian*
-Lambertian::clone(void) const {
+Lambertian*
+Lambertian::clone() const {
     return new Lambertian(*this);
 }
 
@@ -50,12 +51,17 @@ Lambertian::set_cd(const float c){
     cd.b = c;
 }
 
-virtual RGBColor
+RGBColor
 Lambertian::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const {
-    return kd * cd * INV_PI;
+    return cd * kd * INV_PI;
 }
 
-virtual RGBColor
+RGBColor
 Lambertian::rho(const ShadeRec& sr, const Vector3D& wo) const {
-    return kd * cd;
+    return cd * kd;
+}
+
+RGBColor
+Lambertian::sample_f(const ShadeRec &sr, const Vector3D &wi, const Vector3D &wo) const {
+    return BLACK;
 }

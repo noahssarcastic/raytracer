@@ -5,6 +5,7 @@
 #ifndef _BRDF_H
 #define _BRDF_H
 
+#include <Sampler.h>
 #include "RGBColor.h"
 #include "Vector3D.h"
 #include "ShadeRec.h"
@@ -16,7 +17,7 @@
 class BRDF {
 public:
     BRDF();
-    BRDF(const BRDF& object);
+    BRDF(const BRDF& b);
     ~BRDF();
 
     virtual BRDF*

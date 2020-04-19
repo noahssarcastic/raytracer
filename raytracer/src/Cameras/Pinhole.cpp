@@ -56,7 +56,7 @@ Pinhole::render_scene(World& w) {
     Point2D 	pp;
     int n = (int)sqrt((float)vp.num_samples);
 
-    w.open_window(vp.hres, vp.vres);
+//    w.open_window(vp.hres, vp.vres);
     bitmap_image image(vp.hres, vp.vres);
     image.set_all_channels(
             static_cast<char>(w.background_color.r * 255),
