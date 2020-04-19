@@ -5,10 +5,10 @@
 #include <World.h>
 
 
-int main (int argc, char **argv)
+int main ()
 {
     World w;
     w.build();
-    w.render_sampled();
+    w.camera_ptr->render_scene(w);
     return 0;
 }

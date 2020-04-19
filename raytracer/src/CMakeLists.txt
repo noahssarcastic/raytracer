@@ -10,6 +10,8 @@ include_directories(World)
 
 add_executable(
         run main.cpp
+        Cameras/Camera.cpp
+        Cameras/Pinhole.cpp
         GeometricObjects/GeometricObject.cpp
         GeometricObjects/Plane.cpp
         GeometricObjects/Sphere.cpp

@@ -6,6 +6,10 @@
 #define _CAMERA_H
 
 
+#include <Point3D.h>
+
+class World;
+
 class Camera {
 public:
     Camera();
@@ -18,34 +22,43 @@ public:
     clone() const = 0;
 
     virtual void
-    render_scene(const World& w) = 0;
+    render_scene(World& w) = 0;
 
     void
     set_eye(const Point3D& p);
 
     void
-    set_eye(const float x, const float y, const float z);
+    set_eye(float x, float y, float z);
 
     void
     set_lookat(const Point3D& p);
 
     void
-    set_lookat(const float x, const float y, const float z);
+    set_lookat(float x, float y, float z);
 
     void
     set_up_vector(const Vector3D& u);
 
     void
-    set_up_vector(const float x, const float y, const float z);
+    set_up_vector(float x, float y, float z);
 
     void
-    set_roll(const float ra);
+    set_roll(float r);
 
     void
-    set_exposure_time(const float exposure);
+    set_exposure_time(float e);
 
     void
-    compute_uvw(void);
+    compute_uvw();
+
+    bool
+    looking_up();
+
+    bool
+    looking_down();
+
+    void
+    set_roll_angle(float roll);
 
 protected:
     Point3D			eye;
@@ -56,7 +69,7 @@ protected:
     float			exposure_time;
 
     Camera&
-    operator= (const Camera& camera);
+    operator= (const Camera& rhs);
 };
 
 

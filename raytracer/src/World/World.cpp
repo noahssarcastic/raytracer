@@ -2,8 +2,6 @@
 // Created by ninig on 4/12/2020.
 //
 
-#include <algorithm>
-
 #include <Constants.h>
 #include <SingleSphere.h>
 #include <Vector3D.h>
@@ -12,19 +10,19 @@
 #include <Plane.h>
 #include <Jittered.h>
 #include <Regular.h>
-#include <MultiJittered.h>
-#include <NRooks.h>
-#include <PureRandom.h>
+#include <Pinhole.h>
 #include "World.h"
 
 
-World::World(): vp(), background_color(BLACK), sphere(), tracer_ptr(), image_ptr(), d(500), eye(500) {}
+World::World(): vp(), background_color(BLACK), tracer_ptr(), image_ptr(), sphere(), d(500), eye(500), camera_ptr() {}
 
 World::~World() {
     if (tracer_ptr)
         tracer_ptr = nullptr;
     if (image_ptr)
         image_ptr = nullptr;
+    if (camera_ptr)
+        camera_ptr = nullptr;
 }
 
 void
@@ -38,14 +36,21 @@ World::build() {
 
     tracer_ptr = new MultipleObjects(this);
 
+    auto* pinhole_ptr = new Pinhole();
+    pinhole_ptr->set_eye(300, 400, 500);
+    pinhole_ptr->set_lookat(0, 0, -50);
+    pinhole_ptr->set_view_distance(400);
+    pinhole_ptr->compute_uvw();
+    set_camera(pinhole_ptr);
+
     background_color = BLACK;
-    Sphere* sphere_ptr = new Sphere(Point3D(10, -25, 0), 80);
+    auto* sphere_ptr = new Sphere(Point3D(10, -25, 0), 80);
     sphere_ptr->set_color(1, 0, 1);
     add_object(sphere_ptr);
     sphere_ptr = new Sphere(Point3D(0, 30, 0), 60);
     sphere_ptr->set_color(1, 1, 0);
     add_object(sphere_ptr);
-    Plane* plane_ptr = new Plane(Point3D(0, 0, 0), Normal(0, 1, 1));
+    auto* plane_ptr = new Plane(Point3D(0, 0, 0), Normal(0, 1, 1));
     plane_ptr->set_color(0.0, 0.3, 0.0);
     add_object(plane_ptr);
 }
@@ -171,8 +176,11 @@ World::clamp(const RGBColor& raw) const  {
 RGBColor
 World::clamp_to_color(const RGBColor& raw) const {
     RGBColor c(raw);
-    if (raw.r > 1.0 || raw.g > 1.0 || raw.b > 1.0)
-        c.r = 1.0; c.g = 0.0; c.b = 0.0;
+    if (raw.r > 1.0 || raw.g > 1.0 || raw.b > 1.0) {
+        c.r = 1.0;
+        c.g = 0.0;
+        c.b = 0.0;
+    }
     return c;
 }
 
@@ -195,4 +203,8 @@ World::display_pixel(const int row, const int col, const RGBColor& raw) const {
             static_cast<char>(mapped.r * 255),
             static_cast<char>(mapped.g * 255),
             static_cast<char>(mapped.b * 255));
+}
+
+void World::set_camera(Camera *c) {
+    camera_ptr = c;
 }

@@ -8,6 +8,7 @@
 #include <vector>
 #include <Point2D.h>
 #include <MathUtils.h>
+#include <Point3D.h>
 
 
 using namespace std;
@@ -15,8 +16,8 @@ using namespace std;
 class Sampler {
 public:
     Sampler();
-    Sampler(const int samples);
-    Sampler(const int samples, const int sets);
+    explicit Sampler(int samples);
+    Sampler(int samples, int sets);
     Sampler(const Sampler& s);
 
     virtual
@@ -40,16 +41,37 @@ public:
     Point2D
     sample_unit_square();
 
+    void
+    map_samples_to_unit_disk();
+
+    void
+    map_samples_to_hemisphere(float p);
+
+//    void
+//    map_samples_to_sphere();
+
+    Point2D
+    sample_unit_disk();
+
+    Point3D
+    sample_hemisphere();
+
+//    Point3D
+//    sample_sphere();
+
     int
     get_num_samples();
 
 protected:
-    int num_samples;
-    int num_sets;
+    int             num_samples;
+    int             num_sets;
     vector<Point2D> samples;
-    vector<int> shuffled_indices;
-    unsigned long count;
-    int jump;
+    vector<int>     shuffled_indices;
+    vector<Point2D>	disk_samples;
+    vector<Point3D> hemisphere_samples;
+//    vector<Point3D> sphere_samples;
+    unsigned long   count;
+    int             jump;
 };
 
 

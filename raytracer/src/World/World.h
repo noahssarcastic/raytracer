@@ -12,6 +12,7 @@
 #include <Sphere.h>
 #include <Tracer.h>
 #include <bitmap_image.hpp>
+#include <Camera.h>
 #include "ViewPlane.h"
 
 
@@ -30,6 +31,7 @@ public:
     vector<GeometricObject*>    objects;            /**< GeometricObjects in the scene. */
     float                       d;
     double                      eye;
+    Camera*                     camera_ptr;
 
     World();
     ~World();
@@ -98,6 +100,8 @@ public:
     display_pixel(int row, int col, const RGBColor& raw) const;
 
     void render_sampled();
+
+    void set_camera(Camera* c);
 };
 
 
