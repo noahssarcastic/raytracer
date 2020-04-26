@@ -2,6 +2,7 @@
 // Created by ninig on 4/19/2020.
 //
 
+#include <iostream>
 #include "PointLight.h"
 
 
@@ -70,4 +71,23 @@ PointLight::L(ShadeRec& sr) {
 
 void PointLight::scale_radiance(const float b) {
     ls = b;
+}
+
+bool PointLight::in_shadow(const Ray &ray, const ShadeRec &sr) const {
+    if (!shadows) {
+        return false;
+    }
+    float t;
+    int num_objects = sr.w.objects.size();
+    float d = loc.distance(ray.o);
+//    std::cout << "distance " << d << "\n";
+    for (int i = 0; i < num_objects; i++) {
+        GeometricObject* obj = sr.w.objects[i];
+        bool shadow_hit = obj->shadow_hit(ray, t);
+        if ( shadow_hit && t < d) {
+//            std::cout << "shadow hit at " << t << "\n";
+            return true;
+        }
+    }
+    return false;
 }

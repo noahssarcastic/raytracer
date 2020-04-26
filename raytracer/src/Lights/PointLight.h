@@ -46,7 +46,10 @@ public:
     L(ShadeRec& sr) override;
 
     void
-    scale_radiance(const float b);
+    scale_radiance(float b);
+
+    bool
+    in_shadow(const Ray& ray, const ShadeRec& sr) const override;
 
 private:
     float		ls;

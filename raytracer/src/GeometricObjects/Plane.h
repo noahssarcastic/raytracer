@@ -14,21 +14,24 @@
  */
 class Plane: public GeometricObject {
 public:
-    Plane(void);
-    Plane(const Point3D p, const Normal& _n);
+    Plane();
+    Plane(Point3D p, const Normal& _n);
     Plane(const Plane& plane);
 
-    virtual
-    ~Plane(void);
 
-    virtual Plane*
-    clone(void) const;
+    ~Plane() override;
+
+    Plane*
+    clone() const override;
 
     Plane&
     operator= (const Plane& rhs);
 
-    virtual bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+    bool
+    hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+
+    bool
+    shadow_hit(const Ray& ray, float& tmin) const override;
 
 private:
     Point3D a;

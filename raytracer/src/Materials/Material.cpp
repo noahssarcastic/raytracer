@@ -23,3 +23,7 @@ Material::operator=(const Material& rhs) {
         return *this;
     return *this;
 }
+
+void Material::set_shadows(bool s) {
+    shadows = s;
+}

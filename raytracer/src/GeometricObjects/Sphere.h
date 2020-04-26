@@ -14,15 +14,13 @@
  */
 class Sphere: public GeometricObject {
 public:
-    Sphere(void);
+    Sphere();
     Sphere(Point3D c, double r);
     Sphere(const Sphere& sphere);
+    ~Sphere() override;
 
-    virtual
-    ~Sphere(void);
-
-    virtual Sphere*
-    clone(void) const;
+    Sphere*
+    clone() const override;
 
     Sphere&
     operator= (const Sphere& sphere);
@@ -31,13 +29,16 @@ public:
     set_center(const Point3D& c);
 
     void
-    set_center(const double x, const double y, const double z);
+    set_center(double x, double y, double z);
 
     void
-    set_radius(const double r);
+    set_radius(double r);
 
-    virtual bool
-    hit(const Ray& ray, double& t, ShadeRec& sr) const;
+    bool
+    hit(const Ray& ray, double& t, ShadeRec& sr) const override;
+
+    bool
+    shadow_hit(const Ray &ray, float &tmin) const override;
 
 private:
     Point3D 	        center;

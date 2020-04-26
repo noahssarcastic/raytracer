@@ -7,7 +7,7 @@
 #include "ViewPlane.h"
 
 
-ViewPlane::ViewPlane(void):
+ViewPlane::ViewPlane():
     hres(200),
     vres(200),
     s(1.0),
@@ -17,7 +17,7 @@ ViewPlane::ViewPlane(void):
     sampler_ptr(new Regular(1)),
     num_samples(1) {}
 
-ViewPlane::~ViewPlane(void) {}
+ViewPlane::~ViewPlane() {}
 
 void
 ViewPlane::set_hres(const int h) {

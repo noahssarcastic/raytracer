@@ -31,6 +31,18 @@ public:
 
     virtual RGBColor
     L(ShadeRec& sr);
+
+    virtual bool
+    in_shadow(const Ray& ray, const ShadeRec& sr) const;
+
+    void
+    set_shadows(bool s);
+
+    bool
+    casts_shadows() const;
+
+protected:
+    bool shadows;
 };
 
 

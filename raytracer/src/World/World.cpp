@@ -16,6 +16,8 @@
 #include <PointLight.h>
 #include <Matte.h>
 #include <Phong.h>
+#include <Directional.h>
+#include <MultiJittered.h>
 #include "World.h"
 
 
@@ -32,43 +34,72 @@ World::~World() {
 
 void
 World::build() {
-    int num_samples = 9; // Use this for all samplers to avoid sampling misalignment.
-    vp.set_hres(200);
-    vp.set_vres(200);
-    vp.set_sampler(new Jittered(num_samples));
+    int num_samples = 4; // Use this for all samplers to avoid sampling misalignment.
+    vp.set_hres(1000);
+    vp.set_vres(1000);
+//    vp.set_sampler(new MultiJittered(num_samples));
+    vp.set_samples(num_samples);
     vp.set_pixel_size(1.0);
     vp.set_gamma(1.0);
+//    vp.set_gamut_display(false);
 
     tracer_ptr = new RayCast(this);
 
     auto* pinhole_ptr = new Pinhole();
-    pinhole_ptr->set_eye(100, 100, 500);
-    pinhole_ptr->set_lookat(0, 0, -50);
+    pinhole_ptr->set_eye(50, 50, 100);
+    pinhole_ptr->set_lookat(0, 8.75, 0);
     pinhole_ptr->set_view_distance(400);
+    pinhole_ptr->set_zoom(2.0);
     pinhole_ptr->compute_uvw();
     set_camera(pinhole_ptr);
 
     background_color = BLACK;
 
     auto* _ambient_ptr = new Ambient();
-    _ambient_ptr->scale_radiance(2.0);
+    _ambient_ptr->scale_radiance(1);
     set_ambient_light(_ambient_ptr);
 
     auto* pl = new PointLight();
-    pl->set_location(100, 50, 100);
+    pl->set_location(0, 50, 20);
     pl->scale_radiance(3.0);
+    pl->set_shadows(true);
     add_light(pl);
 
-    auto* matte_ptr = new Phong();
-    matte_ptr->set_ka(0.25);
-    matte_ptr->set_kd(0.6);
-    matte_ptr->set_cd(1, 1, 0);
-    matte_ptr->set_ks(0.2);
-    matte_ptr->set_exp(5);
-    matte_ptr->set_cs(1);
-    auto* sphere_ptr = new Sphere(Point3D(10, -25, 0), 80);
-    sphere_ptr->set_material(matte_ptr);
+//    auto* dl = new Directional();
+//    dl->set_direction(15, 15, 2.5);
+//    dl->scale_radiance(2.0);
+//    dl->set_shadows(true);
+//    add_light(dl);
+
+    auto* yellow = new Matte();
+    yellow->set_ka(0.25);
+    yellow->set_kd(0.6);
+    yellow->set_cd(1, 1, 0);
+//    yellow->set_ks(0.8);
+//    yellow->set_exp(5);
+//    yellow->set_cs(1);
+//    yellow->set_shadows(true);
+    auto* sphere_ptr = new Sphere(Point3D(0, 10, 0), 10);
+    sphere_ptr->set_material(yellow);
+    sphere_ptr->set_shadows(true);
     add_object(sphere_ptr);
+    sphere_ptr = new Sphere(Point3D(30, 10, 0), 10);
+    sphere_ptr->set_material(yellow);
+    sphere_ptr->set_shadows(true);
+    add_object(sphere_ptr);
+    sphere_ptr = new Sphere(Point3D(-30, 10, 0), 10);
+    sphere_ptr->set_material(yellow);
+    sphere_ptr->set_shadows(true);
+    add_object(sphere_ptr);
+
+    auto* green = new Matte();
+    green->set_ka(0.25);
+    green->set_kd(0.6);
+    green->set_cd(0, 0.6, 0);
+    green->set_shadows(true);
+    auto* plane_ptr = new Plane(Point3D(0, 0, 0), Vector3D(0, 1, 0));
+    plane_ptr->set_material(green);
+    add_object(plane_ptr);
 }
 
 void

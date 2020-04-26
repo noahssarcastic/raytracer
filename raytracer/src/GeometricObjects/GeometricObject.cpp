@@ -39,3 +39,7 @@ Material *GeometricObject::get_material() const {
     return material_ptr;
 }
 
+void GeometricObject::set_shadows(bool s) {
+    shadows = s;
+}
+

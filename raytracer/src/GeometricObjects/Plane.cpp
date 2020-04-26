@@ -7,16 +7,16 @@
 
 const double Plane::kEpsilon = 0.001;
 
-Plane::Plane(void): GeometricObject(), a(0.0), n(0, 1, 0) {}
+Plane::Plane(): GeometricObject(), a(0.0), n(0, 1, 0) {}
 
 Plane::Plane(const Point3D p, const Normal& _n): GeometricObject(), a(p), n(_n) {}
 
-Plane::Plane(const Plane& plane): GeometricObject(), a(plane.a), n(plane.n) {}
+Plane::Plane(const Plane& plane): GeometricObject(plane), a(plane.a), n(plane.n) {}
 
-Plane::~Plane(void) {}
+Plane::~Plane() = default;
 
 Plane*
-Plane::clone(void) const {
+Plane::clone() const {
     return new Plane(*this);
 }
 
@@ -40,4 +40,18 @@ Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         return true;
     }
     return false;
+}
+
+bool
+Plane::shadow_hit(const Ray &ray, float &tmin) const {
+    if (!shadows) {
+        return false;
+    }
+    float t = (a - ray.o) * n / (ray.d * n);
+    if (t > kEpsilon) {
+        tmin = t;
+        return true;
+    } else {
+        return false;
+    }
 }

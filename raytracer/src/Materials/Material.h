@@ -24,7 +24,12 @@ public:
     virtual RGBColor
     shade(ShadeRec& sr);
 
+    void
+    set_shadows(bool s);
+
 protected:
+    bool shadows;
+
     Material&
     operator= (const Material& rhs);
 };

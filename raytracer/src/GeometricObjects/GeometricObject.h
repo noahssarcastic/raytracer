@@ -34,14 +34,21 @@ public:
     virtual bool
     hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
 
+    virtual bool
+    shadow_hit(const Ray& ray, float& tmin) const = 0;
+
     Material*
     get_material() const;
 
     virtual void
     set_material(Material* ptr);
 
+    void
+    set_shadows(bool s);
+
 protected:
     Material* material_ptr;
+    bool shadows;
 
     GeometricObject&
     operator=(const GeometricObject& rhs);

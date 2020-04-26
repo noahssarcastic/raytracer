@@ -58,3 +58,7 @@ Ambient::L(ShadeRec& s) {
 void Ambient::scale_radiance(const float b) {
     ls = b;
 }
+
+bool Ambient::in_shadow(const Ray &ray, const ShadeRec &sr) const {
+    return false;
+}

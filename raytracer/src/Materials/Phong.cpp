@@ -17,11 +17,20 @@ Phong::shade(ShadeRec& sr) {
     Vector3D wo = -sr.ray.d;
     RGBColor L = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
     int num_lights = sr.w.lights.size();
-    for (int j = 0; j < num_lights; j++) {
-        Vector3D wi = sr.w.lights[j]->get_direction(sr);
+    for (int i = 0; i < num_lights; i++) {
+        Vector3D wi = sr.w.lights[i]->get_direction(sr);
         float normal_check = sr.normal * wi;
-        if (normal_check > 0.0)
-            L += (diffuse_brdf->f(sr, wo, wi) + specular_brdf->f(sr, wo, wi)) * sr.w.lights[j]->L(sr) * normal_check;
+        if (normal_check > 0.0) {
+            bool in_shadow = false;
+            if (sr.w.lights[i]->casts_shadows()) {
+                Ray shadowRay(sr.hit_point, wi);
+                in_shadow = sr.w.lights[i]->in_shadow(shadowRay, sr);
+            }
+            if (!in_shadow) {
+                RGBColor shade = (diffuse_brdf->f(sr, wo, wi) + specular_brdf->f(sr, wo, wi));
+                L +=  shade * sr.w.lights[i]->L(sr) * normal_check;
+            }
+        }
     }
     return L;
 }
