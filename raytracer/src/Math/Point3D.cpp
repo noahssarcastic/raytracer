@@ -59,5 +59,5 @@ Point3D::d_squared(const Point3D& p) const {
 
 double
 Point3D::distance(const Point3D& p) const {
-    return sqrt(this->d_squared(p));
+    return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2) +	pow(z - p.z, 2));
 }

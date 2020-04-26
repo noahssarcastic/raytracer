@@ -12,7 +12,11 @@
 #include <Sphere.h>
 #include <Tracer.h>
 #include <bitmap_image.hpp>
+#include <Camera.h>
+#include <Light.h>
+#include <Ambient.h>
 #include "ViewPlane.h"
+#include "GeometricObject.h"
 
 
 /**
@@ -23,13 +27,13 @@ using namespace std;
 class World {
 public:
     ViewPlane                   vp;
-    RGBColor                    background_color;
-    Tracer*                     tracer_ptr;
     bitmap_image*               image_ptr;
-    Sphere 					    sphere;             /**< Sphere used in SingleSphere tracer. */
+    Camera*                     camera_ptr;
+    Tracer*                     tracer_ptr;
+    Light*                      ambient_ptr{};
+    RGBColor                    background_color;
     vector<GeometricObject*>    objects;            /**< GeometricObjects in the scene. */
-    float                       d;
-    double                      eye;
+    vector<Light*>              lights;
 
     World();
     ~World();
@@ -44,33 +48,24 @@ public:
     void
     add_object(GeometricObject* object_ptr);
 
+    void
+    add_light(Light* light_ptr);
+
     /**
-     * Rudimentary ray-cast method.
+     * Ray-cast method.
      * @param ray Ray to cast.
      * @return Shading data.
      */
     ShadeRec
-    hit_bare_bones_objects(const Ray& ray);
+    hit_objects(const Ray& ray);
 
-    /**
-     *
-     */
-    void
-    render_scene();
-
-    /**
-     *
-     */
-    void
-    render_perspective();
-
-    /**
-     * Used to visualize ray-tracing
-     * @param hres Horizontal resolution.
-     * @param vres Vertical resolution.
-     */
-    void
-    open_window(int hres, int vres);
+//    /**
+//     * Used to visualize ray-tracing
+//     * @param hres Horizontal resolution.
+//     * @param vres Vertical resolution.
+//     */
+//    void
+//    open_window(int hres, int vres);
 
     /**
      * Clamp RGBColor to in gamut values.
@@ -96,6 +91,12 @@ public:
      */
     void
     display_pixel(int row, int col, const RGBColor& raw) const;
+
+    void
+    set_camera(Camera* c);
+
+    void
+    set_ambient_light(Ambient* a);
 };
 
 

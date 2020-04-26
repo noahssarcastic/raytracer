@@ -4,35 +4,42 @@
 
 #include "GeometricObject.h"
 #include "Constants.h"
+#include "Material.h"
 
 
-GeometricObject::GeometricObject(void): color(BLACK) {}
+GeometricObject::GeometricObject(): material_ptr(nullptr) {}
 
-GeometricObject::GeometricObject(const GeometricObject& object): color(object.color) {}
+GeometricObject::GeometricObject(const GeometricObject& object): material_ptr(object.material_ptr) {}
 
-GeometricObject::~GeometricObject(void) {}
+GeometricObject::~GeometricObject() {
+    if (material_ptr) {
+        delete material_ptr;
+        material_ptr = nullptr;
+    }
+}
 
 GeometricObject&
 GeometricObject::operator= (const GeometricObject& rhs) {
     if (this == &rhs)
         return *this;
-    color = rhs.color;
+    if (material_ptr) {
+        delete material_ptr;
+        material_ptr = nullptr;
+    }
+    if (rhs.material_ptr)
+        material_ptr = rhs.material_ptr->clone();
     return *this;
 }
 
-void
-GeometricObject::set_color(const RGBColor& c) {
-    color = c;
+void GeometricObject::set_material(Material *ptr) {
+    material_ptr = ptr;
 }
 
-void
-GeometricObject::set_color(const float r, const float g, const float b) {
-    color.r = r;
-    color.g = g;
-    color.b = b;
+Material *GeometricObject::get_material() const {
+    return material_ptr;
 }
 
-RGBColor
-GeometricObject::get_color(void) {
-    return color;
+void GeometricObject::set_shadows(bool s) {
+    shadows = s;
 }
+

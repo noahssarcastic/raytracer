@@ -16,12 +16,12 @@ SingleSphere::~SingleSphere(void) {}
 
 RGBColor
 SingleSphere::trace_ray(const Ray& ray) const {
-    ShadeRec	sr(*world_ptr);
-    double    	t;
-    if (world_ptr->sphere.hit(ray, t, sr)) {
-        return (RED);
-    }
-    else {
-        return (BLACK);
-    }
+//    ShadeRec	sr(*world_ptr);
+//    double    	t;
+//    if (world_ptr->sphere.hit(ray, t, sr)) {
+//        return (RED);
+//    }
+//    else {
+//        return (BLACK);
+//    }
 }

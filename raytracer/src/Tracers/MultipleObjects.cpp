@@ -14,9 +14,9 @@ MultipleObjects::~MultipleObjects() = default;
 
 RGBColor
 MultipleObjects::trace_ray(const Ray& ray) const {
-    ShadeRec sr(world_ptr->hit_bare_bones_objects(ray));
-    if (sr.hit)
-        return sr.color;
-    else
-        return world_ptr->background_color;
+//    ShadeRec sr(world_ptr->hit_bare_bones_objects(ray));
+//    if (sr.hit)
+//        return sr.color;
+//    else
+//        return world_ptr->background_color;
 }
