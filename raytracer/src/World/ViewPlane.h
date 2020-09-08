@@ -15,12 +15,13 @@ class ViewPlane {
 public:
     int         hres;
     int         vres;
-    float       s;
+    float       pixel_size;
     float       gamma;
     float	    inv_gamma;
     bool        show_gamut_error;
     Sampler*    sampler_ptr;
     int         num_samples;
+    int         max_bounces;
 
     ViewPlane();
     ~ViewPlane();
@@ -49,6 +50,9 @@ public:
 
     void
     set_samples(int n);
+
+    void
+    set_max_bounces(int b);
 };
 
 

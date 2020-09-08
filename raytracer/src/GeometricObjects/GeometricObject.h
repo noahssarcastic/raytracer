@@ -32,10 +32,10 @@ public:
      * @return true if there is a collision.
      */
     virtual bool
-    hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
+    hit(const Ray& ray, double& t, ShadeRec& s) = 0;
 
     virtual bool
-    shadow_hit(const Ray& ray, float& tmin) const = 0;
+    shadow_hit(const Ray& ray, float& tmin) = 0;
 
     Material*
     get_material() const;

@@ -9,7 +9,7 @@
 #include "Point3D.h"
 
 
-Vector3D::Vector3D(void): x(0.0), y(0.0), z(0.0) {}
+Vector3D::Vector3D(): x(0.0), y(0.0), z(0.0) {}
 
 Vector3D::Vector3D(double a): x(a), y(a), z(a) {}
 
@@ -21,7 +21,7 @@ Vector3D::Vector3D(const Normal& n): x(n.x), y(n.y), z(n.z) {}
 
 Vector3D::Vector3D(const Point3D& p): x(p.x), y(p.y), z(p.z) {}
 
-Vector3D::~Vector3D (void) {}
+Vector3D::~Vector3D () = default;
 
 Vector3D&
 Vector3D::operator= (const Vector3D& rhs) {
@@ -54,7 +54,7 @@ Vector3D::operator= (const Point3D& rhs) {
 }
 
 Vector3D
-Vector3D::operator- (void) const {
+Vector3D::operator- () const {
     return Vector3D(-x, -y, -z);
 }
 
@@ -97,25 +97,25 @@ Vector3D::operator^ (const Vector3D& v) const {
 }
 
 double
-Vector3D::length(void) {
-    return sqrt(this->len_squared());
+Vector3D::length() const {
+    return sqrt(len_squared());
 }
 
 double
-Vector3D::len_squared(void) {
+Vector3D::len_squared() const {
     return x*x + y*y + z*z;
 }
 
 void
-Vector3D::normalize(void) {
-    double length = this->length();
+Vector3D::normalize() {
+    double length = Vector3D::length();
     x /= length;
     y /= length;
     z /= length;
 }
 
 Vector3D&
-Vector3D::hat(void) {
-    this->normalize();
+Vector3D::hat() {
+    normalize();
     return *this;
 }

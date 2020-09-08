@@ -72,16 +72,16 @@ public:
      * @param raw Raw color value.
      * @return Safe color value [0, 1].
      */
-    RGBColor
-    clamp(const RGBColor& raw) const;
+    static RGBColor
+    clamp(const RGBColor& raw) ;
 
     /**
      * Replace out-of-gamut RGBColor values with red.
      * @param raw Raw color value.
      * @return Safe color value [0, 1].
      */
-    RGBColor
-    clamp_to_color(const RGBColor& raw) const;
+    static RGBColor
+    clamp_to_color(const RGBColor& raw) ;
 
     /**
      * Render pixel in image.

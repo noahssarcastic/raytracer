@@ -52,7 +52,7 @@ Sphere::set_radius(const double r) {
 }
 
 bool
-Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) {
     double 		t;
     Vector3D	temp 	= ray.o - center;
     double 		a 		= ray.d * ray.d;
@@ -68,8 +68,7 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         if (t > kEpsilon) {
             tmin = t;
-            sr.normal 	 = (temp + ray.d * t) / radius;
-            sr.hit_point = ray.o + ray.d * t;
+            sr.normal = (temp + ray.d * t) / radius;
             return true;
         }
 
@@ -77,8 +76,7 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         if (t > kEpsilon) {
             tmin = t;
-            sr.normal   = (temp + ray.d * t) / radius;
-            sr.hit_point = ray.o + ray.d * t;
+            sr.normal = (temp + ray.d * t) / radius;
             return true;
         }
     }
@@ -87,7 +85,7 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool
-Sphere::shadow_hit(const Ray &ray, float &tmin) const {
+Sphere::shadow_hit(const Ray &ray, float &tmin) {
     if (!shadows) {
         return false;
     }

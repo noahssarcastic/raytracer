@@ -80,12 +80,10 @@ bool PointLight::in_shadow(const Ray &ray, const ShadeRec &sr) const {
     float t;
     int num_objects = sr.w.objects.size();
     float d = loc.distance(ray.o);
-//    std::cout << "distance " << d << "\n";
     for (int i = 0; i < num_objects; i++) {
         GeometricObject* obj = sr.w.objects[i];
         bool shadow_hit = obj->shadow_hit(ray, t);
         if ( shadow_hit && t < d) {
-//            std::cout << "shadow hit at " << t << "\n";
             return true;
         }
     }

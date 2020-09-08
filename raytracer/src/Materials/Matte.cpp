@@ -82,20 +82,16 @@ Matte::shade(ShadeRec& sr) {
     for (int i = 0; i < num_lights; i++) {
         Vector3D wi = sr.w.lights[i]->get_direction(sr);
         float normal_check = sr.normal * wi;
-//        std::cout << "n" << normal_check << "\n";
         if (normal_check > 0.0) {
             bool in_shadow = false;
             if (shadows && sr.w.lights[i]->casts_shadows()) {
-//                std::cout << "casts shadows\n";
                 Ray shadowRay(sr.hit_point, wi);
                 in_shadow = sr.w.lights[i]->in_shadow(shadowRay, sr);
             }
             if (!in_shadow) {
-//                std::cout << "not in shadow\n";
                 L += diffuse_brdf->f(sr, wo, wi) * sr.w.lights[i]->L(sr) * normal_check;
             }
         }
     }
-//    std::cout << "r" << L.r << "g" << L.r << "b" << L.r << "\n";
     return L;
 }

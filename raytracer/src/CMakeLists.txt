@@ -15,11 +15,15 @@ add_executable(
         BRDFs/BRDF.cpp
         BRDFs/Lambertian.cpp
         BRDFs/GlossySpecular.cpp
+        BRDFs/PerfectSpecular.cpp
+        BRDFs/BlinnPhong.cpp
         Cameras/Camera.cpp
         Cameras/Pinhole.cpp
         GeometricObjects/GeometricObject.cpp
         GeometricObjects/Plane.cpp
         GeometricObjects/Sphere.cpp
+        GeometricObjects/Compound.cpp
+#        GeometricObjects/Grid.cpp
         Lights/Ambient.cpp
         Lights/Directional.cpp
         Lights/Light.cpp
@@ -28,6 +32,9 @@ add_executable(
         Materials/Matte.cpp
         Materials/Phong.cpp
         Materials/Plastic.cpp
+        Materials/Reflective.cpp
+        Materials/Metallic.cpp
+        Materials/Polished.cpp
         Math/MathUtils.cpp
         Math/Matrix.cpp
         Math/Normal.cpp
@@ -43,8 +50,10 @@ add_executable(
         Samplers/Sampler.cpp
         Tracers/Tracer.cpp
         Tracers/RayCast.cpp
+        Tracers/Whitted.cpp
         Utilities/RGBColor.cpp
         Utilities/ShadeRec.cpp
+        Utilities/BBox.cpp
         World/ViewPlane.cpp
         World/World.cpp
 )

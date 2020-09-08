@@ -1,25 +1,25 @@
 //
-// Created by ninig on 4/19/2020.
+// Created by ninig on 4/28/2020.
 //
 
-#include "Phong.h"
+#include "Metallic.h"
 
 
-Phong::Phong():
-    Material(),
-    ambient_brdf(new Lambertian),
-    diffuse_brdf(new Lambertian),
-    specular_brdf(new GlossySpecular)
-    {}
+Metallic::Metallic():
+        Material(),
+        ambient_brdf(new Lambertian),
+        diffuse_brdf(new Lambertian),
+        specular_brdf(new GlossySpecular)
+{}
 
-Phong::Phong(const Phong &p):
-    Material(p),
-    ambient_brdf(p.ambient_brdf),
-    diffuse_brdf(p.diffuse_brdf),
-    specular_brdf(p.specular_brdf)
-    {}
+Metallic::Metallic(const Metallic &m):
+        Material(m),
+        ambient_brdf(m.ambient_brdf),
+        diffuse_brdf(m.diffuse_brdf),
+        specular_brdf(m.specular_brdf)
+{}
 
-Phong::~Phong() {
+Metallic::~Metallic() {
     if (ambient_brdf)
         ambient_brdf = nullptr;
     if (diffuse_brdf)
@@ -29,7 +29,7 @@ Phong::~Phong() {
 }
 
 RGBColor
-Phong::shade(ShadeRec& sr) {
+Metallic::shade(ShadeRec& sr) {
     Vector3D wo = -sr.ray.d;
     RGBColor L = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
     int num_lights = sr.w.lights.size();
@@ -51,63 +51,48 @@ Phong::shade(ShadeRec& sr) {
     return L;
 }
 
-Phong*
-Phong::clone() const {
-    return new Phong(*this);
+Metallic*
+Metallic::clone() const {
+    return new Metallic(*this);
 }
 
 void
-Phong::set_ka(float k) {
+Metallic::set_ka(float k) {
     ambient_brdf->set_kd(k);
 }
 
 void
-Phong::set_kd(float k) {
+Metallic::set_kd(float k) {
     diffuse_brdf->set_kd(k);
 }
 
 void
-Phong::set_cd(const RGBColor c) {
+Metallic::set_c(const RGBColor c) {
     ambient_brdf->set_cd(c);
     diffuse_brdf->set_cd(c);
-}
-
-void
-Phong::set_cd(float r, float g, float b) {
-    ambient_brdf->set_cd(r, g, b);
-    diffuse_brdf->set_cd(r, g, b);
-}
-
-void
-Phong::set_cd(float c) {
-    ambient_brdf->set_cd(c);
-    diffuse_brdf->set_cd(c);
-}
-
-void
-Phong::set_ks(float ks) {
-    specular_brdf->set_ks(ks);
-}
-
-void
-Phong::set_exp(float exp) {
-    specular_brdf->set_exp(exp);
-}
-
-void
-Phong::set_cs(const RGBColor& c) {
     specular_brdf->set_cs(c);
 }
 
 void
-Phong::set_cs(float r, float g, float b) {
+Metallic::set_c(float r, float g, float b) {
+    ambient_brdf->set_cd(r, g, b);
+    diffuse_brdf->set_cd(r, g, b);
     specular_brdf->set_cs(r, g, b);
 }
 
 void
-Phong::set_cs(float c) {
+Metallic::set_c(float c) {
+    ambient_brdf->set_cd(c);
+    diffuse_brdf->set_cd(c);
     specular_brdf->set_cs(c);
 }
 
+void
+Metallic::set_ks(float ks) {
+    specular_brdf->set_ks(ks);
+}
 
-
+void
+Metallic::set_exp(float exp) {
+    specular_brdf->set_exp(exp);
+}

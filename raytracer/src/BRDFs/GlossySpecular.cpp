@@ -7,7 +7,7 @@
 #include "GlossySpecular.h"
 
 
-GlossySpecular::GlossySpecular(): BRDF(), ks(0.0), cs(1.0) {}
+GlossySpecular::GlossySpecular(): BRDF(), ks(0.0), cs(1.0), exp(5), sampler() {}
 
 GlossySpecular::~GlossySpecular() = default;
 
@@ -17,7 +17,7 @@ GlossySpecular::clone() const {
 }
 
 RGBColor
-GlossySpecular::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const {
+GlossySpecular::f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &wi) const {
     RGBColor L;
     float normal_check = sr.normal * wi;
     Vector3D r(-wi + sr.normal * 2.0 * normal_check);
@@ -59,9 +59,4 @@ GlossySpecular::set_cs(const float c) {
     cs.r = c;
     cs.g = c;
     cs.b = c;
-}
-
-RGBColor
-GlossySpecular::sample_f(const ShadeRec &sr, const Vector3D &wi, const Vector3D &wo) const {
-    return BLACK;
 }
