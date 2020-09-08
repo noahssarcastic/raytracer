@@ -52,16 +52,11 @@ Lambertian::set_cd(const float c){
 }
 
 RGBColor
-Lambertian::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const {
+Lambertian::f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &wi) const {
     return cd * kd * INV_PI;
 }
 
 RGBColor
 Lambertian::rho(const ShadeRec& sr, const Vector3D& wo) const {
     return cd * kd;
-}
-
-RGBColor
-Lambertian::sample_f(const ShadeRec &sr, const Vector3D &wi, const Vector3D &wo) const {
-    return BLACK;
 }

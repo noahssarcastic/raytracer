@@ -65,7 +65,7 @@ Directional::get_direction(ShadeRec& sr) {
 
 RGBColor
 Directional::L(ShadeRec& sr) {
-    color * ls;
+    return color * ls;
 }
 
 void Directional::scale_radiance(const float b) {

@@ -16,11 +16,11 @@ class World;
  */
 class Tracer {
 public:
-    Tracer(void);
-    Tracer(World* _world_ptr);
+    Tracer();
+    explicit Tracer(World* _world_ptr);
 
     virtual
-    ~Tracer(void);
+    ~Tracer();
 
     /**
      * Given a ray, cast to all objects, set ShadeRec data, and return a pixel color.
@@ -31,10 +31,10 @@ public:
     trace_ray(const Ray& ray) const;
 
     virtual RGBColor
-    trace_ray(const Ray ray, const int depth) const;
+    trace_ray(Ray ray, int depth) const;
 
     virtual RGBColor
-    trace_ray(const Ray ray, float& tmin, const int depth) const;
+    trace_ray(Ray ray, float& tmin, int depth) const;
 
 protected:
     World* world_ptr;

@@ -8,14 +8,16 @@
 
 
 ViewPlane::ViewPlane():
-    hres(200),
-    vres(200),
-    s(1.0),
-    gamma(1.0),
-    inv_gamma(1.0),
-    show_gamut_error(false),
-    sampler_ptr(new Regular(1)),
-    num_samples(1) {}
+        hres(200),
+        vres(200),
+        pixel_size(1.0),
+        gamma(1.0),
+        inv_gamma(1.0),
+        show_gamut_error(false),
+        sampler_ptr(new Regular(1)),
+        num_samples(1),
+        max_bounces(1)
+        {}
 
 ViewPlane::~ViewPlane() {}
 
@@ -31,7 +33,7 @@ ViewPlane::set_vres(const int v) {
 
 void
 ViewPlane::set_pixel_size(const float _s) {
-    s = _s;
+    pixel_size = _s;
 }
 
 void
@@ -66,4 +68,8 @@ ViewPlane::set_samples(const int n) {
         sampler_ptr = new MultiJittered(num_samples);
     else
         sampler_ptr = new Regular(1);
+}
+
+void ViewPlane::set_max_bounces(int b) {
+    max_bounces = b;
 }

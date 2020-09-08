@@ -5,12 +5,12 @@
 #ifndef _GLOSSYSPECULAR_H
 #define _GLOSSYSPECULAR_H
 
-
 #include <Normal.h>
 #include <Sampler.h>
 #include <RGBColor.h>
 #include <ShadeRec.h>
 #include "BRDF.h"
+
 
 class GlossySpecular: public BRDF {
 public:
@@ -21,10 +21,7 @@ public:
     clone() const override;
 
     RGBColor
-    f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
-
-    RGBColor
-    sample_f(const ShadeRec& sr, const Vector3D& wi, const Vector3D& wo) const override;
+    f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &wi) const override;
 
     RGBColor
     rho(const ShadeRec& sr, const Vector3D& wo) const override;

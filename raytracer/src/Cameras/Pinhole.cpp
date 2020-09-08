@@ -64,18 +64,17 @@ Pinhole::render_scene(World& w) {
             static_cast<char>(w.background_color.b * 255));
     w.image_ptr = &image;
 
-    vp.s /= zoom;
+    vp.pixel_size /= zoom;
     ray.o = eye;
     for (int r = 0; r < vp.vres; r++){
         for (int c = 0; c < vp.hres; c++) {
             L = BLACK;
             for (int p = 0; p < n; p++)	{
                 for (int q = 0; q < n; q++) {
-                    pp.x = vp.s * (c - 0.5 * vp.hres + (q + 0.5) / n);
-                    pp.y = vp.s * (r - 0.5 * vp.vres + (p + 0.5) / n);
+                    pp.x = vp.pixel_size * (c - 0.5 * vp.hres + (q + 0.5) / n);
+                    pp.y = vp.pixel_size * (r - 0.5 * vp.vres + (p + 0.5) / n);
                     ray.d = get_direction(pp);
-//                    L += w.tracer_ptr->trace_ray(ray, depth); TODO: FIX THIS
-                    L += w.tracer_ptr->trace_ray(ray);
+                    L += w.tracer_ptr->trace_ray(ray, depth);
                 }
             }
             L /= vp.num_samples;

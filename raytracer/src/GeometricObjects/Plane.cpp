@@ -31,19 +31,18 @@ Plane::operator= (const Plane& rhs) {
 }
 
 bool
-Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) {
     float t = (a - ray.o) * n / (ray.d * n);
     if (t > kEpsilon) {
         tmin = t;
         sr.normal = n;
-        sr.hit_point = ray.o + ray.d * t;
         return true;
     }
     return false;
 }
 
 bool
-Plane::shadow_hit(const Ray &ray, float &tmin) const {
+Plane::shadow_hit(const Ray &ray, float &tmin) {
     if (!shadows) {
         return false;
     }

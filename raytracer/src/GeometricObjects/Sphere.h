@@ -35,10 +35,10 @@ public:
     set_radius(double r);
 
     bool
-    hit(const Ray& ray, double& t, ShadeRec& sr) const override;
+    hit(const Ray& ray, double& t, ShadeRec& sr) override;
 
     bool
-    shadow_hit(const Ray &ray, float &tmin) const override;
+    shadow_hit(const Ray &ray, float &tmin) override;
 
 private:
     Point3D 	        center;

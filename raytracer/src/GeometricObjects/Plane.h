@@ -28,10 +28,10 @@ public:
     operator= (const Plane& rhs);
 
     bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+    hit(const Ray& ray, double& tmin, ShadeRec& sr) override;
 
     bool
-    shadow_hit(const Ray& ray, float& tmin) const override;
+    shadow_hit(const Ray& ray, float& tmin) override;
 
 private:
     Point3D a;

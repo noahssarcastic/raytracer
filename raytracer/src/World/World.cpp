@@ -18,6 +18,10 @@
 #include <Phong.h>
 #include <Directional.h>
 #include <MultiJittered.h>
+#include <Whitted.h>
+#include <Reflective.h>
+#include <Polished.h>
+#include <Metallic.h>
 #include "World.h"
 
 
@@ -37,23 +41,23 @@ World::build() {
     int num_samples = 4; // Use this for all samplers to avoid sampling misalignment.
     vp.set_hres(1000);
     vp.set_vres(1000);
-//    vp.set_sampler(new MultiJittered(num_samples));
     vp.set_samples(num_samples);
     vp.set_pixel_size(1.0);
     vp.set_gamma(1.0);
-//    vp.set_gamut_display(false);
+    vp.set_max_bounces(10);
+//    vp.set_gamut_display(true);
 
-    tracer_ptr = new RayCast(this);
+    tracer_ptr = new Whitted(this);
 
     auto* pinhole_ptr = new Pinhole();
     pinhole_ptr->set_eye(50, 50, 100);
-    pinhole_ptr->set_lookat(0, 8.75, 0);
+    pinhole_ptr->set_lookat(0, 7, 0);
     pinhole_ptr->set_view_distance(400);
     pinhole_ptr->set_zoom(2.0);
     pinhole_ptr->compute_uvw();
     set_camera(pinhole_ptr);
 
-    background_color = BLACK;
+    background_color = RGBColor(0.6, 0.8, 1);
 
     auto* _ambient_ptr = new Ambient();
     _ambient_ptr->scale_radiance(1);
@@ -61,42 +65,65 @@ World::build() {
 
     auto* pl = new PointLight();
     pl->set_location(0, 50, 20);
-    pl->scale_radiance(3.0);
+    pl->scale_radiance(2.0);
     pl->set_shadows(true);
     add_light(pl);
 
-//    auto* dl = new Directional();
-//    dl->set_direction(15, 15, 2.5);
-//    dl->scale_radiance(2.0);
-//    dl->set_shadows(true);
-//    add_light(dl);
+    auto* dl = new Directional();
+    dl->set_direction(-20, -15, 2.5);
+    dl->scale_radiance(1.0);
+    dl->set_shadows(true);
+    add_light(dl);
 
-    auto* yellow = new Matte();
+
+    auto* reflective = new Reflective;
+    reflective->set_ka(0.25);
+    reflective->set_kd(0.5);
+    reflective->set_cd(0, 0, 0.2);
+    reflective->set_ks(0.15);
+    reflective->set_exp(100);
+    reflective->set_kr(0.75);
+    reflective->set_cr(1, 1, 1);
+    reflective->set_shadows(true);
+
+    auto* yellow = new Phong();
     yellow->set_ka(0.25);
     yellow->set_kd(0.6);
     yellow->set_cd(1, 1, 0);
-//    yellow->set_ks(0.8);
-//    yellow->set_exp(5);
-//    yellow->set_cs(1);
-//    yellow->set_shadows(true);
-    auto* sphere_ptr = new Sphere(Point3D(0, 10, 0), 10);
-    sphere_ptr->set_material(yellow);
-    sphere_ptr->set_shadows(true);
-    add_object(sphere_ptr);
-    sphere_ptr = new Sphere(Point3D(30, 10, 0), 10);
-    sphere_ptr->set_material(yellow);
-    sphere_ptr->set_shadows(true);
-    add_object(sphere_ptr);
-    sphere_ptr = new Sphere(Point3D(-30, 10, 0), 10);
-    sphere_ptr->set_material(yellow);
-    sphere_ptr->set_shadows(true);
-    add_object(sphere_ptr);
+    yellow->set_ks(0.8);
+    yellow->set_exp(10);
+    yellow->set_cs(1);
+    yellow->set_shadows(true);
+
+    auto* metal = new Metallic();
+    metal->set_ka(0.25);
+    metal->set_kd(0.5);
+    metal->set_c(1, 1, 0);
+    metal->set_ks(0.8);
+    metal->set_exp(10);
+    metal->set_shadows(true);
 
     auto* green = new Matte();
     green->set_ka(0.25);
     green->set_kd(0.6);
     green->set_cd(0, 0.6, 0);
     green->set_shadows(true);
+
+    auto* sphere_ptr = new Sphere(Point3D(0, 10, 0), 10);
+    sphere_ptr->set_material(reflective);
+    sphere_ptr->set_shadows(true);
+    add_object(sphere_ptr);
+
+    sphere_ptr = new Sphere(Point3D(30, 10, 0), 10);
+    sphere_ptr->set_material(yellow);
+    sphere_ptr->set_shadows(true);
+    add_object(sphere_ptr);
+
+    sphere_ptr = new Sphere(Point3D(-30, 10, 0), 10);
+    sphere_ptr->set_material(metal);
+    sphere_ptr->set_shadows(true);
+    add_object(sphere_ptr);
+
     auto* plane_ptr = new Plane(Point3D(0, 0, 0), Vector3D(0, 1, 0));
     plane_ptr->set_material(green);
     add_object(plane_ptr);
@@ -139,7 +166,7 @@ World::hit_objects(const Ray& ray) {
 //}
 
 RGBColor
-World::clamp(const RGBColor& raw) const  {
+World::clamp(const RGBColor& raw)  {
     float max_value = std::max(raw.r, std::max(raw.g, raw.b));
     if (max_value > 1.0)
         return (raw / max_value);
@@ -148,7 +175,7 @@ World::clamp(const RGBColor& raw) const  {
 }
 
 RGBColor
-World::clamp_to_color(const RGBColor& raw) const {
+World::clamp_to_color(const RGBColor& raw) {
     RGBColor c(raw);
     if (raw.r > 1.0 || raw.g > 1.0 || raw.b > 1.0) {
         c.r = 1.0;

@@ -13,13 +13,13 @@ class Vector3D {
 public:
     double	x, y, z;
 
-    Vector3D(void);
+    Vector3D();
     Vector3D(double a);
     Vector3D(double _x, double _y, double _z);
     Vector3D(const Vector3D& v);
     Vector3D(const Normal& n);
     Vector3D(const Point3D& p);
-    ~Vector3D (void);
+    ~Vector3D ();
 
     Vector3D&
     operator= (const Vector3D& rhs);
@@ -31,13 +31,13 @@ public:
     operator= (const Point3D& rhs);
 
     Vector3D
-    operator- (void) const;
+    operator- () const;
 
     Vector3D
-    operator* (const double a) const;
+    operator* (double a) const;
 
     Vector3D
-    operator/ (const double a) const;
+    operator/ (double a) const;
 
     Vector3D
     operator+ (const Vector3D& v) const;
@@ -55,16 +55,16 @@ public:
     operator^ (const Vector3D& v) const;
 
     double
-    length(void);
+    length() const;
 
     double
-    len_squared(void);
+    len_squared() const;
 
     void
-    normalize(void);
+    normalize();
 
     Vector3D&
-    hat(void);
+    hat();
 };
 
 

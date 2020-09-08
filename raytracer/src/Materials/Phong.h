@@ -14,7 +14,11 @@ class Phong: public Material {
 public:
     Phong();
 
-    Material*
+    Phong(const Phong& p);
+
+    ~Phong() override;
+
+    Phong*
     clone() const override;
 
     void
@@ -24,7 +28,7 @@ public:
     set_kd(float k);
 
     void
-    set_cd(const RGBColor c);
+    set_cd(RGBColor c);
 
     void
     set_cd(float r, float g, float b);

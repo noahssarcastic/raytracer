@@ -54,10 +54,10 @@ Point3D::operator* (const double a) const {
 
 double
 Point3D::d_squared(const Point3D& p) const {
-    return pow(x - p.x, 2) + pow(y - p.y, 2) +	pow(z - p.z, 2);
+    return pow(x - p.x, 2) + pow(y - p.y, 2) + pow(z - p.z, 2);
 }
 
 double
 Point3D::distance(const Point3D& p) const {
-    return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2) +	pow(z - p.z, 2));
+    return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2) + pow(z - p.z, 2));
 }
